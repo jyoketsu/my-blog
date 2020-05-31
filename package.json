@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
   "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "axios": "^0.19.2",
     "next": "9.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

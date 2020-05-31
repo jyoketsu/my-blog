@@ -1,36 +1,33 @@
+import { useEffect } from "react";
+import api from "../src/api";
+import { useDispatch } from "react-redux";
+import { GET_ARTICLES } from "../src/redux/types";
 import Head from "next/head";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import Articles from "../src/components/article/Aticles";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = api.article.get(1, 20);
+    dispatch({ type: GET_ARTICLES, payload: payload });
+  }, []);
   return (
-    <div className="container">
+    <Container maxWidth="md">
       <Head>
         <title>徐杰的博客</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
         <h1 className="title">徐杰的博客</h1>
+        <Articles />
+        <Button variant="contained" color="primary" href="#contained-buttons">
+          启动
+        </Button>
       </main>
 
       <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
         .title {
           margin: 0;
           line-height: 1.15;
@@ -53,6 +50,6 @@ export default function Home() {
           box-sizing: border-box;
         }
       `}</style>
-    </div>
+    </Container>
   );
 }
