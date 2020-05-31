@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import api from "../src/api";
 import { useDispatch } from "react-redux";
-import { GET_ARTICLES } from "../src/redux/types";
+import { getArticles } from "../src/redux/actions";
 import Head from "next/head";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
@@ -9,10 +8,11 @@ import Articles from "../src/components/article/Aticles";
 
 export default function Home() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    const payload = api.article.get(1, 20);
-    dispatch({ type: GET_ARTICLES, payload: payload });
-  }, []);
+    dispatch(getArticles());
+  }, [dispatch]);
+
   return (
     <Container maxWidth="md">
       <Head>
