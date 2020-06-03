@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
   root: {
     width: 275,
+    marginBottom: 15,
   },
   title: {
     fontSize: 14,
@@ -24,6 +25,15 @@ export default function Profile() {
           gutterBottom
         >
           关于
+        </Typography>
+        <Typography variant="body2" component="p">
+          其他内容
+        </Typography>
+        <Typography variant="body2" component="p">
+          其他内容
+        </Typography>
+        <Typography variant="body2" component="p">
+          其他内容
         </Typography>
         <Typography variant="body2" component="p">
           <span>邮箱：</span>

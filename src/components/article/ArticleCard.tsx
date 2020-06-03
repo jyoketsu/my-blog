@@ -1,12 +1,13 @@
-import React from "react";
+import React, { MouseEvent } from "react";
+import { useRouter } from "next/router";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import moment from "moment";
 import Tag from "../common/Tag";
+import Info from "../article/ArticleInfo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,39 +55,66 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ArticleCard() {
+export default function ArticleCard({ aritcle }) {
   const classes = useStyles();
+  const router = useRouter();
+
+  function handleClick(e: MouseEvent) {
+    e.preventDefault();
+    router.push(`/article/${aritcle._id}`);
+  }
+
+  function handleClickCategory(e: MouseEvent) {
+    e.stopPropagation();
+    console.log("---点击分类---", aritcle.category._id);
+  }
+
+  const tags = aritcle.tags;
+
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card
+      className={classes.root}
+      variant="outlined"
+      onClick={(e) => handleClick(e)}
+    >
       <CardActionArea style={{ display: "flex" }}>
         <div className={classes.details}>
           <div className={classes.content}>
             <Typography className={classes.title} variant="h6">
-              禁止蒙层底部页面跟
+              {aritcle.title}
             </Typography>
             <Typography className={classes.title} variant="body2">
-              正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容
+              {aritcle.snippet}
             </Typography>
             <div className={classes.infoWrapper}>
-              <Typography className={classes.info} color="textSecondary">
-                分类名
-              </Typography>
-              <Tag text="标签" color="#62592C" />
-              <Tag text="标签2" color="#EB7A77" />
+              <Info
+                info={aritcle.category.name}
+                onClick={handleClickCategory}
+              />
+              {tags.map((tag: any, index: number) => (
+                <Tag
+                  id={tag._id}
+                  key={index}
+                  text={tag.name}
+                  color={tag.color}
+                />
+              ))}
             </div>
             <div className={classes.infoWrapper}>
-              <Typography className={classes.info} color="textSecondary">
-                2020-06-02
-              </Typography>
+              <Info
+                info={moment(aritcle.updateTime).format("YYYY年MM月DD日")}
+              />
             </div>
             <div></div>
           </div>
         </div>
-        <CardMedia
-          className={classes.cover}
-          image="https://psnine.com/Upload/game/11318.png"
-          title="Live from space album cover"
-        />
+        {aritcle.cover ? (
+          <CardMedia
+            className={classes.cover}
+            image={aritcle.cover}
+            title={aritcle.title}
+          />
+        ) : null}
       </CardActionArea>
     </Card>
   );

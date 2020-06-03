@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles.css'
 import App from "next/app";
 import { END } from "redux-saga";
 import { wrapper } from "../src/redux/store";

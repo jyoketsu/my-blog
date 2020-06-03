@@ -1,9 +1,11 @@
 import Head from "next/head";
+import Button from "@material-ui/core/Button";
 import Articles from "../src/components/article/Aticles";
 import AppBar from "../src/components/common/AppBar";
 import Profile from "../src/components/common/Profile";
+import api from "../src/api";
 
-export default function Home() {
+function Home({ posts }) {
   return (
     <div>
       <Head>
@@ -12,14 +14,20 @@ export default function Home() {
       </Head>
       <AppBar />
       <main>
-        <div>
+        <div className="home-left">
+          <Profile />
           <Profile />
         </div>
         <div className="home-right">
-          <Articles />
+          <Articles articles={posts} />
+          <Button href="#text-buttons" color="primary">
+            查看更多
+          </Button>
         </div>
       </main>
-      <footer>这里是footer</footer>
+      <footer>
+        这里是footer这里是footer这里是footer @2020 Powered by Ketsu Jyo
+      </footer>
 
       <style jsx>{`
         main {
@@ -38,6 +46,9 @@ export default function Home() {
         .home-right {
           flex: 1;
           margin-left: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         @media screen and (max-width: 768px) {
           main {
@@ -46,22 +57,19 @@ export default function Home() {
           }
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          width: 100%;
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 }
+
+export async function getStaticProps() {
+  const res: any = await api.article.get(1, 20);
+  if (res.status === 200) {
+    const posts = res.result.array;
+
+    return {
+      props: { posts },
+    };
+  }
+}
+
+export default Home;

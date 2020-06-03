@@ -1,5 +1,5 @@
+import { MouseEvent } from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,19 +17,31 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-export default function Tag({ text, color }) {
+
+interface Props {
+  id: string;
+  text: string;
+  color: string;
+}
+
+export default function Tag({ id, text, color }: Props) {
   const classes = useStyles();
+
+  function handleClick(e: MouseEvent) {
+    e.stopPropagation();
+    console.log("---点击标签---", id);
+  }
+
   return (
-    <Typography
+    <span
       className={classes.root}
-      variant="body2"
       style={{
         background: color,
         color: "#FFF",
       }}
-      color={color}
+      onClick={(e) => handleClick(e)}
     >
-      <span>{text}</span>
-    </Typography>
+      {text}
+    </span>
   );
 }

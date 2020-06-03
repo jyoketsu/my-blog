@@ -73,14 +73,14 @@ const request = {
   },
 };
 const article = {
-  get(current: number, pageSize: number) {
+  get(current?: number, pageSize?: number) {
     return request.get(API_URL + "/article", {
       current: current,
       pageSize: pageSize,
     });
   },
   getById(_id: string) {
-    return request.get(API_URL + "/article/findById", {
+    return request.get(API_URL + "/article/findByIdDetail", {
       _id: _id,
     });
   },
