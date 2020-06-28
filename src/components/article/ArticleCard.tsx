@@ -104,6 +104,7 @@ export default function ArticleCard({ aritcle }) {
               <Info
                 info={moment(aritcle.updateTime).format("YYYY年MM月DD日")}
               />
+              <Info info={`阅读数：${aritcle.viewCount}`} />
             </div>
             <div></div>
           </div>

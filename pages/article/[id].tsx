@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import Article from "../../src/components/article/Article";
 import Header from "../../src/components/article/Header";
 import api from "../../src/api";
 
 function Post({ post }) {
+  useEffect(() => {
+    api.article.incCount(post._id);
+  }, []);
+
   return (
     <div className="article">
       <Head>

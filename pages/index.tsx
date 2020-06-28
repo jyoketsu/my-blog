@@ -1,9 +1,9 @@
 import Head from "next/head";
-import Button from "@material-ui/core/Button";
 import Articles from "../src/components/article/Aticles";
 import AppBar from "../src/components/common/AppBar";
 import Profile from "../src/components/common/Profile";
 import api from "../src/api";
+import Button from "@material-ui/core/Button";
 
 function Home({ posts }) {
   return (
@@ -26,7 +26,12 @@ function Home({ posts }) {
         </div>
       </main>
       <footer>
-        这里是footer这里是footer这里是footer @2020 Powered by Ketsu Jyo
+        <span>©2020 Jyoketsu All Rights Reserved</span>
+        <span
+          onClick={() => window.open("http://www.beian.miit.gov.cn", "_blank")}
+        >
+          苏ICP备20038833号
+        </span>
       </footer>
 
       <style jsx>{`
@@ -39,6 +44,7 @@ function Home({ posts }) {
           border-top: 1px solid #ddd;
           height: 60px;
           display: flex;
+          justify-content: space-between;
           align-items: center;
           color: #9e9e9e;
           padding: 0 25px;

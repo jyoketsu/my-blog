@@ -11,7 +11,7 @@ const request = {
           url: path,
           params: params,
           headers: {
-            "Auth-Token": token,
+            "token": token,
           },
         });
         resolve(response.data);
@@ -28,7 +28,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "Auth-Token": token,
+            "token": token,
           },
         });
         resolve(response.data);
@@ -45,7 +45,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "Auth-Token": token,
+            "token": token,
           },
         });
         resolve(response.data);
@@ -62,7 +62,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "Auth-Token": token,
+            "token": token,
           },
         });
         resolve(response.data);
@@ -125,6 +125,11 @@ const article = {
         tags: tags,
         cover: cover,
       },
+    });
+  },
+  incCount(_id: string) {
+    return request.post(API_URL + "/article/incCount", {
+      _id: _id,
     });
   },
 };
