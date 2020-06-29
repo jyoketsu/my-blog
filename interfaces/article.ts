@@ -1,4 +1,10 @@
 export type Article = {
-  id: number
-  name: string
+  _id: string;
+  name: string;
+};
+
+export interface ArticleReducerType {
+  articles: any[];
+  total: number;
+  loading: boolean;
 }

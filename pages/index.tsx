@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Articles from "../src/components/article/Aticles";
 import AppBar from "../src/components/common/AppBar";
 import Profile from "../src/components/common/Profile";
@@ -6,21 +7,26 @@ import api from "../src/api";
 import Button from "@material-ui/core/Button";
 
 function Home({ posts }) {
+  const router = useRouter();
+
   return (
-    <div>
+    <div className="articles-wrapper">
       <Head>
         <title>徐杰的博客</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AppBar />
-      <main>
+      <main className="home-main">
         <div className="home-left">
           <Profile />
           <Profile />
         </div>
         <div className="home-right">
           <Articles articles={posts} />
-          <Button href="#text-buttons" color="primary">
+          <Button
+            color="primary"
+            onClick={() => router.push(`/articles`)}
+          >
             查看更多
           </Button>
         </div>
@@ -33,36 +39,6 @@ function Home({ posts }) {
           苏ICP备20038833号
         </span>
       </footer>
-
-      <style jsx>{`
-        main {
-          display: flex;
-          max-width: 960px;
-          margin: 25px auto;
-        }
-        footer {
-          border-top: 1px solid #ddd;
-          height: 60px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: #9e9e9e;
-          padding: 0 25px;
-        }
-        .home-right {
-          flex: 1;
-          margin-left: 15px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        @media screen and (max-width: 768px) {
-          main {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
     </div>
   );
 }

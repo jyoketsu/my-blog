@@ -7,18 +7,20 @@ export const actionTypes = {
   CLEAR_ARTICLE: "CLEAR_ARTICLE",
 };
 
-export function getArticles() {
+export function getArticles(current: number, pageSize: number) {
   return {
     type: actionTypes.GET_ARTICLES,
+    current,
+    pageSize,
   };
 }
-export function getArticlesSuccess(data) {
+export function getArticlesSuccess(data: any) {
   return {
     type: actionTypes.GET_ARTICLES_SUCCEEDED,
     data,
   };
 }
-export function getArticlesFailed(error) {
+export function getArticlesFailed(error: any) {
   return {
     type: actionTypes.GET_ARTICLES_FAILED,
     error,

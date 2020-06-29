@@ -13,26 +13,28 @@ import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
+import { useRouter } from "next/router";
+import Alert from "./Alert";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
       flexGrow: 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
     title: {
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
       },
+    },
+    titleButton: {
+      color: "#FFF",
+      fontSize: "18px",
     },
     search: {
       position: "relative",
@@ -63,7 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),
       width: "100%",
@@ -88,6 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const router = useRouter();
+  const [keyword, setkeyword] = React.useState("");
+  const [alert, setalert] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
@@ -95,7 +99,6 @@ export default function PrimarySearchAppBar() {
   ] = React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -112,6 +115,19 @@ export default function PrimarySearchAppBar() {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleSearch = (event: React.KeyboardEvent) => {
+    if (event.keyCode === 13) {
+      if (keyword) {
+        router.push({
+          pathname: "/articles",
+          query: { keyword: keyword },
+        });
+      } else {
+        setalert("检索内容不能为空！");
+      }
+    }
   };
 
   const menuId = "primary-search-account-menu";
@@ -131,60 +147,20 @@ export default function PrimarySearchAppBar() {
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            徐杰的个人博客
+            <Button
+              className={classes.titleButton}
+              size="large"
+              onClick={() => router.push("/")}
+            >
+              此处标题
+              {/* 徐杰的个人博客 */}
+            </Button>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -197,6 +173,9 @@ export default function PrimarySearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              value={keyword}
+              onChange={(e) => setkeyword(e.target.value)}
+              onKeyDown={handleSearch}
             />
           </div>
           <div className={classes.grow} />
@@ -230,8 +209,8 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
+      <Alert alert={alert} setalert={setalert} />
     </div>
   );
 }

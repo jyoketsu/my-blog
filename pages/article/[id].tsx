@@ -24,6 +24,9 @@ function Post({ post }) {
         <Article aritcle={post} />
       </main>
       <style jsx>{`
+        .article {
+          padding: 15px 0;
+        }
         main {
           max-width: 760px;
           margin: auto;
