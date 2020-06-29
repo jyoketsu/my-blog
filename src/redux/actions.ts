@@ -7,11 +7,16 @@ export const actionTypes = {
   CLEAR_ARTICLE: "CLEAR_ARTICLE",
 };
 
-export function getArticles(current: number, pageSize: number) {
+export function getArticles(
+  current: number,
+  pageSize: number,
+  keyword?: string
+) {
   return {
     type: actionTypes.GET_ARTICLES,
     current,
     pageSize,
+    keyword,
   };
 }
 export function getArticlesSuccess(data: any) {

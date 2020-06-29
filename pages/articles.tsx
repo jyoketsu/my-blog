@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../src/redux/reducer/RootState";
 import Pagination from "@material-ui/lab/Pagination";
 import Loading from "../src/components/common/Loading";
+import Profile from "../src/components/common/Profile";
 import { useRouter } from "next/router";
 
 function AllArticles() {
@@ -20,8 +21,7 @@ function AllArticles() {
   const loading = useTypedSelector((state) => state.article.loading);
 
   useEffect(() => {
-    console.log("---query---", query);
-    dispatch(getArticles(current, pageSize));
+    dispatch(getArticles(current, pageSize, query.keyword as string));
     (document.getElementById("__next") as HTMLElement).scrollTop = 0;
   }, [current, pageSize, query]);
 
@@ -34,21 +34,29 @@ function AllArticles() {
       <AppBar />
       <main className="home-main">
         <div className="home-left">
-          {/* <Profile />
-          <Profile /> */}
+          <Profile />
+          <Profile />
         </div>
         <div className="home-right">
           <Articles articles={articles} />
-          <Pagination
-            page={current}
-            count={Math.ceil(total / pageSize)}
-            size="large"
-            onChange={(event: object, page: number) => {
-              setcurrent(page);
-              (document.getElementById("__next") as HTMLElement).scrollTop = 0;
-            }}
-          />
+          {articles.length ? (
+            <Pagination
+              page={current}
+              count={Math.ceil(total / pageSize)}
+              size="large"
+              onChange={(event: object, page: number) => {
+                setcurrent(page);
+                (document.getElementById(
+                  "__next"
+                ) as HTMLElement).scrollTop = 0;
+              }}
+            />
+          ) : null}
+
           {loading ? <Loading /> : null}
+          {!loading && !articles.length ? (
+            <span className="no-result">暂无结果</span>
+          ) : null}
         </div>
       </main>
       <footer>
@@ -65,6 +73,9 @@ function AllArticles() {
         }
         .home-main {
           min-height: calc(100% - 124px - 50px);
+        }
+        .no-result {
+          font-size: 18px;
         }
       `}</style>
     </div>

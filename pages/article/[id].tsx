@@ -12,14 +12,14 @@ function Post({ post }) {
   return (
     <div className="article">
       <Head>
-        <title>文章</title>
+        <title>{`${post.title}-徐杰的博客`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <Header
           category={post.category}
           tags={post.tags}
-          updateTime={post.updateTime}
+          updateTime={post.createTime}
         />
         <Article aritcle={post} />
       </main>

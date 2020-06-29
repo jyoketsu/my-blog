@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
     },
     details: {
+      width: "100%",
       flex: 1,
       height: 199,
     },
@@ -102,7 +103,7 @@ export default function ArticleCard({ aritcle }) {
             </div>
             <div className={classes.infoWrapper}>
               <Info
-                info={moment(aritcle.updateTime).format("YYYY年MM月DD日")}
+                info={moment(aritcle.createTime).format("YYYY年MM月DD日")}
               />
               <Info info={`阅读数：${aritcle.viewCount}`} />
             </div>

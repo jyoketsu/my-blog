@@ -11,7 +11,7 @@ const request = {
           url: path,
           params: params,
           headers: {
-            "token": token,
+            token: token,
           },
         });
         resolve(response.data);
@@ -28,7 +28,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "token": token,
+            token: token,
           },
         });
         resolve(response.data);
@@ -45,7 +45,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "token": token,
+            token: token,
           },
         });
         resolve(response.data);
@@ -62,7 +62,7 @@ const request = {
           url: path,
           data: params,
           headers: {
-            "token": token,
+            token: token,
           },
         });
         resolve(response.data);
@@ -73,10 +73,11 @@ const request = {
   },
 };
 const article = {
-  get(current?: number, pageSize?: number) {
+  get(current?: number, pageSize?: number, keyword?: string) {
     return request.get(API_URL + "/article", {
       current: current,
       pageSize: pageSize,
+      keyword: keyword,
     });
   },
   getById(_id: string) {
