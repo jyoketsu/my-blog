@@ -10,6 +10,15 @@ npm run dev
 yarn dev
 ```
 
+pm2 部署
+```bash
+pm2 start npm --name="my-blog" -- run deploy
+```
+重载
+```
+pm2 reload my-blog
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
