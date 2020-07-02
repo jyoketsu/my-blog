@@ -1,6 +1,7 @@
 import axios from "axios";
-const API_URL = "http://106.53.222.64:8099";
-let token: string = "fafeafa123456";
+// const API_URL = "http://106.53.222.64:8099";
+const API_URL = "https://service.jyoketsu.com";
+let token: string = "";
 
 const request = {
   get(path: string, params: object) {
