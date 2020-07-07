@@ -6,7 +6,8 @@ import javascript from "react-syntax-highlighter/dist/cjs/languages/hljs/javascr
 // import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 // import css from "react-syntax-highlighter/dist/cjs/languages/hljs/css";
 // 设置高亮样式
-import { atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+// import { atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { okaidia } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 interface Props {
   language: string;
@@ -22,7 +23,7 @@ export default function CodeBlock({ language, value = "" }: Props) {
   // }, []);
 
   return (
-    <SyntaxHighlighter language={language} style={atomOneDark}>
+    <SyntaxHighlighter language={language} style={okaidia}>
       {value}
     </SyntaxHighlighter>
   );
