@@ -14,12 +14,12 @@ interface Props {
 }
 
 export default function CodeBlock({ language, value = "" }: Props) {
-  useEffect(() => {
-    SyntaxHighlighter.registerLanguage("javascript", javascript);
-    // SyntaxHighlighter.registerLanguage("python", python);
-    // SyntaxHighlighter.registerLanguage("bash", bash);
-    // SyntaxHighlighter.registerLanguage("css", css);
-  }, []);
+  // useEffect(() => {
+  //   SyntaxHighlighter.registerLanguage("javascript", javascript);
+  //   // SyntaxHighlighter.registerLanguage("python", python);
+  //   // SyntaxHighlighter.registerLanguage("bash", bash);
+  //   // SyntaxHighlighter.registerLanguage("css", css);
+  // }, []);
 
   return (
     <SyntaxHighlighter language={language} style={atomOneDark}>
