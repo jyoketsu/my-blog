@@ -25,16 +25,18 @@ function Post({ post }) {
       </main>
       <style jsx>{`
         .article {
-          padding: 15px 0;
+          padding: 0;
         }
         main {
-          max-width: 760px;
+          max-width: 800px;
           margin: auto;
+          background-color: #fff;
+          padding: 25px;
         }
         @media screen and (max-width: 768px) {
           main {
             width: 100%;
-            padding: 25px;
+            padding: 15px;
           }
         }
       `}</style>

@@ -15,6 +15,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       marginBottom: 15,
+      boxShadow: "none",
+      "&:hover": {
+        backgroundColor: "#eeeeee",
+      },
+    },
+    actionArea: {
+      display: "flex",
+      "@media (max-width: 768px)": {
+        flexDirection: "column-reverse",
+      },
     },
     details: {
       width: "100%",
@@ -31,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
     cover: {
       width: 200,
       height: 199,
+      "@media (max-width: 768px)": {
+        width: "100%",
+        height: "220px",
+      },
     },
     title: {
       overflow: "hidden",
@@ -73,51 +87,48 @@ export default function ArticleCard({ aritcle }) {
   const tags = aritcle.tags;
 
   return (
-    <Card
-      className={classes.root}
-      variant="outlined"
-      onClick={(e) => handleClick(e)}
-    >
-      <CardActionArea style={{ display: "flex" }}>
-        <div className={classes.details}>
-          <div className={classes.content}>
-            <Typography className={classes.title} variant="h6">
-              {aritcle.title}
-            </Typography>
-            <Typography className={classes.title} variant="body2">
-              {aritcle.snippet}
-            </Typography>
-            <div className={classes.infoWrapper}>
-              <Info
-                info={aritcle.category.name}
-                onClick={handleClickCategory}
-              />
-              {tags.map((tag: any, index: number) => (
-                <Tag
-                  id={tag._id}
-                  key={index}
-                  text={tag.name}
-                  color={tag.color}
+    <div>
+      <Card className={classes.root} onClick={(e) => handleClick(e)}>
+        <CardActionArea className={classes.actionArea}>
+          <div className={classes.details}>
+            <div className={classes.content}>
+              <Typography className={classes.title} variant="h6">
+                {aritcle.title}
+              </Typography>
+              <Typography className={classes.title} variant="body2">
+                {aritcle.snippet}
+              </Typography>
+              <div className={classes.infoWrapper}>
+                <Info
+                  info={aritcle.category.name}
+                  onClick={handleClickCategory}
                 />
-              ))}
+                {tags.map((tag: any, index: number) => (
+                  <Tag
+                    id={tag._id}
+                    key={index}
+                    text={tag.name}
+                    color={tag.color}
+                  />
+                ))}
+              </div>
+              <div className={classes.infoWrapper}>
+                <Info
+                  info={moment(aritcle.createTime).format("YYYY年MM月DD日")}
+                />
+                <Info info={`阅读数：${aritcle.viewCount}`} />
+              </div>
             </div>
-            <div className={classes.infoWrapper}>
-              <Info
-                info={moment(aritcle.createTime).format("YYYY年MM月DD日")}
-              />
-              <Info info={`阅读数：${aritcle.viewCount}`} />
-            </div>
-            <div></div>
           </div>
-        </div>
-        {aritcle.cover ? (
-          <CardMedia
-            className={classes.cover}
-            image={aritcle.cover}
-            title={aritcle.title}
-          />
-        ) : null}
-      </CardActionArea>
-    </Card>
+          {aritcle.cover ? (
+            <CardMedia
+              className={classes.cover}
+              image={aritcle.cover}
+              title={aritcle.title}
+            />
+          ) : null}
+        </CardActionArea>
+      </Card>
+    </div>
   );
 }

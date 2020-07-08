@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles.css'
+import "../styles.css";
 import App from "next/app";
 import { END } from "redux-saga";
 import { wrapper } from "../src/redux/store";
@@ -28,6 +28,17 @@ class MyApp extends App {
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
+    }
+
+    var url = window.location.href;
+    // 自动切换为https
+    if (
+      url.indexOf("localhost") === -1 &&
+      url.indexOf("192.168") === -1 &&
+      url.indexOf("https") < 0
+    ) {
+      url = url.replace("http:", "https:");
+      window.location.replace(url);
     }
   }
 

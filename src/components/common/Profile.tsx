@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
   root: {
     marginBottom: 15,
+    boxShadow: "none",
   },
   title: {
     fontSize: 14,
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 export default function Profile() {
   const classes = useStyles();
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root}>
       <CardContent>
         <Typography
           className={classes.title}

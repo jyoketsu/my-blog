@@ -19,8 +19,9 @@ body {
 
 .home-main {
   display: flex;
-  max-width: 960px;
+  max-width: 990px;
   margin: 25px auto;
+  padding: 0 15px;
 }
 footer {
   border-top: 1px solid #ddd;
@@ -46,6 +47,9 @@ footer {
     width: 100%;
     flex-direction: column;
     justify-content: center;
+  }
+  .home-main {
+    padding: unset;
   }
   .home-left,
   .home-right {
