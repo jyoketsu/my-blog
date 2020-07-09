@@ -1,29 +1,18 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import AppBar from "../src/components/common/AppBar";
 import Articles from "../src/components/article/Aticles";
-import { getArticles } from "../src/redux/actions";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../src/redux/reducer/RootState";
 import Pagination from "@material-ui/lab/Pagination";
 import Loading from "../src/components/common/Loading";
 import Profile from "../src/components/common/Profile";
-import { useRouter } from "next/router";
+import Tags from "../src/components/common/Tags";
+import api from "../src/api";
 
-function AllArticles() {
+function AllArticles({ articles, total, tags }) {
   const pageSize = 20;
   const router = useRouter();
   const query = router.query;
-  const dispatch = useDispatch();
-  const [current, setcurrent] = useState(1);
-  const articles = useTypedSelector((state) => state.article.articles);
-  const total = useTypedSelector((state) => state.article.total);
-  const loading = useTypedSelector((state) => state.article.loading);
-
-  useEffect(() => {
-    dispatch(getArticles(current, pageSize, query.keyword as string));
-    (document.getElementById("__next") as HTMLElement).scrollTop = 0;
-  }, [current, pageSize, query]);
 
   return (
     <div className="articles-wrapper">
@@ -34,6 +23,7 @@ function AllArticles() {
       <AppBar />
       <main className="home-main">
         <div className="home-left">
+          <Tags tags={tags} />
           <Profile />
           <Profile />
         </div>
@@ -41,20 +31,22 @@ function AllArticles() {
           <Articles articles={articles} />
           {articles.length ? (
             <Pagination
-              page={current}
+              page={typeof query.page === "number" ? query.page : 1}
               count={Math.ceil(total / pageSize)}
               size="large"
               onChange={(event: object, page: number) => {
-                setcurrent(page);
-                (document.getElementById(
-                  "__next"
-                ) as HTMLElement).scrollTop = 0;
+                router.push({
+                  pathname: "/articles",
+                  query: { ...query, ...{ page: page } },
+                });
+                // (document.getElementById(
+                //   "__next"
+                // ) as HTMLElement).scrollTop = 0;
               }}
             />
           ) : null}
 
-          {loading ? <Loading /> : null}
-          {!loading && !articles.length ? (
+          {!articles.length ? (
             <span className="no-result">暂无结果</span>
           ) : null}
         </div>
@@ -80,6 +72,26 @@ function AllArticles() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  const query = context.query;
+  const page = context.page || 1;
+  const keyword = query.keyword;
+
+  let promises = [api.article.get(page, 20, keyword), api.tag.getTags()];
+  const results: any[] = await Promise.all(promises);
+
+  if (results[0].status === 200 && results[1].status === 200) {
+    // 文章
+    const articles = results[0].result.array;
+    const total = results[0].result.count;
+    // 标签
+    const tags = results[1].result;
+    // Pass data to the page via props
+    return { props: { articles, total, tags } };
+  }
 }
 
 export default AllArticles;

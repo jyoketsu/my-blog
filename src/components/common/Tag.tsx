@@ -22,9 +22,11 @@ interface Props {
   id: string;
   text: string;
   color: string;
+  style?: object;
+  count?: number;
 }
 
-export default function Tag({ id, text, color }: Props) {
+export default function Tag({ id, text, color, style, count }: Props) {
   const classes = useStyles();
 
   function handleClick(e: MouseEvent) {
@@ -38,10 +40,11 @@ export default function Tag({ id, text, color }: Props) {
       style={{
         background: color,
         color: "#FFF",
+        ...style,
       }}
       onClick={(e) => handleClick(e)}
     >
-      {text}
+      {count ? `${text}（${count}）` : text}
     </span>
   );
 }
