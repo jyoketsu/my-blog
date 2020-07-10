@@ -9,6 +9,15 @@ import Button from "@material-ui/core/Button";
 function Home({ posts }) {
   const router = useRouter();
 
+  const more = () => {
+    if (document.body.scrollTop) {
+      document.body.scrollTop = 0;
+    } else {
+      document.documentElement.scrollTop = 0;
+    }
+    router.push(`/articles`);
+  };
+
   return (
     <div className="articles-wrapper">
       <Head>
@@ -23,10 +32,7 @@ function Home({ posts }) {
         </div>
         <div className="home-right">
           <Articles articles={posts} />
-          <Button
-            color="primary"
-            onClick={() => router.push(`/articles`)}
-          >
+          <Button color="primary" onClick={more}>
             查看更多
           </Button>
         </div>
