@@ -81,7 +81,10 @@ export default function ArticleCard({ aritcle }) {
 
   function handleClickCategory(e: MouseEvent) {
     e.stopPropagation();
-    console.log("---点击分类---", aritcle.category._id);
+    router.push({
+      pathname: "/articles",
+      query: { category: aritcle.category._id },
+    });
   }
 
   const tags = aritcle.tags;

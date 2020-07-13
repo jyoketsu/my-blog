@@ -77,9 +77,11 @@ export async function getServerSideProps(context) {
   const query = context.query;
   const page = context.page || 1;
   const keyword = query.keyword;
+  const category = query.category;
+  const tag = query.tag;
 
   let promises = [
-    api.article.get(page, 20, keyword),
+    api.article.get(page, 20, keyword, category, tag),
     api.tag.getTags(),
     api.category.getCategories(),
   ];

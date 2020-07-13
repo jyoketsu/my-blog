@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -13,6 +14,8 @@ const useStyles = makeStyles({
   category: {
     fontSize: 14,
     userSelect: "none",
+    width: "fit-content",
+    "&:hover": { cursor: "pointer" },
   },
 });
 
@@ -22,6 +25,15 @@ interface Props {
 
 export default function Categories({ categories }: Props) {
   const classes = useStyles();
+  const router = useRouter();
+
+  const handleClick = (id: string) => {
+    router.push({
+      pathname: "/articles",
+      query: { category: id },
+    });
+  };
+
   return (
     <Card className={classes.categories}>
       <CardContent>
@@ -33,6 +45,7 @@ export default function Categories({ categories }: Props) {
             key={category._id}
             className={classes.category}
             gutterBottom
+            onClick={() => handleClick(category._id)}
           >{`${category.name}（${category.count}）`}</Typography>
         ))}
       </CardContent>

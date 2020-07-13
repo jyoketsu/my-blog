@@ -74,11 +74,19 @@ const request = {
   },
 };
 const article = {
-  get(current?: number, pageSize?: number, keyword?: string) {
+  get(
+    current?: number,
+    pageSize?: number,
+    keyword?: string,
+    category?: string,
+    tag?: string
+  ) {
     return request.get(API_URL + "/article", {
       current: current,
       pageSize: pageSize,
       keyword: keyword,
+      category: category,
+      tag: tag,
     });
   },
   getById(_id: string) {

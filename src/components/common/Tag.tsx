@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import { useRouter } from "next/router";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: "default",
       opacity: 1,
       userSelect: "none",
+      "&:hover": { cursor: "pointer" },
     },
   })
 );
@@ -29,10 +31,14 @@ interface Props {
 
 export default function Tag({ id, text, color, style, count }: Props) {
   const classes = useStyles();
+  const router = useRouter();
 
   function handleClick(e: MouseEvent) {
     e.stopPropagation();
-    console.log("---点击标签---", id);
+    router.push({
+      pathname: "/articles",
+      query: { tag: id },
+    });
   }
 
   return (

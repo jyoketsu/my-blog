@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "2px",
       cursor: "default",
       opacity: 1,
+      "&:hover": { cursor: "pointer" },
     },
   })
 );
