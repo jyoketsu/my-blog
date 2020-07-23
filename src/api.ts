@@ -73,6 +73,11 @@ const request = {
     });
   },
 };
+const auth = {
+  getUserDetail(_id: string) {
+    return request.get(API_URL + "/user/detail", { _id });
+  },
+};
 const article = {
   get(
     current?: number,
@@ -194,6 +199,7 @@ export default {
   article,
   category,
   tag,
+  auth,
   setToken: (_token: string) => {
     window.localStorage.setItem("TOKEN", _token);
     token = _token;

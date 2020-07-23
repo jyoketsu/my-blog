@@ -6,7 +6,7 @@ import Profile from "../src/components/common/Profile";
 import api from "../src/api";
 import Button from "@material-ui/core/Button";
 
-function Home({ posts }) {
+function Home({ posts, user }) {
   const router = useRouter();
 
   const more = () => {
@@ -30,8 +30,7 @@ function Home({ posts }) {
       <AppBar />
       <main className="home-main">
         <div className="home-left">
-          <Profile />
-          <Profile />
+          <Profile user={user} />
         </div>
         <div className="home-right">
           <Articles articles={posts} />
@@ -53,12 +52,16 @@ function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const res: any = await api.article.get(1, 20);
-  if (res.status === 200) {
-    const posts = res.result.array;
-
+  let promises = [
+    api.article.get(1, 20),
+    api.auth.getUserDetail("5ef36ef356e5707c25fd1818"),
+  ];
+  const results: any[] = await Promise.all(promises);
+  if (results[0].status === 200 && results[1].status === 200) {
+    const posts = results[0].result.array;
+    const user = results[1].result;
     return {
-      props: { posts },
+      props: { posts, user },
     };
   }
 }
