@@ -15,7 +15,10 @@ function Home({ posts }) {
     } else {
       document.documentElement.scrollTop = 0;
     }
-    router.push(`/articles`);
+    router.push({
+      pathname: "/articles",
+      query: { page: 2 },
+    });
   };
 
   return (

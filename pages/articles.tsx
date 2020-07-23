@@ -29,7 +29,7 @@ function AllArticles({ articles, total, tags, categories }) {
           <Articles articles={articles} />
           {articles.length ? (
             <Pagination
-              page={typeof query.page === "number" ? query.page : 1}
+              page={typeof query.page ? parseInt(query.page as string) : 1}
               count={Math.ceil(total / pageSize)}
               size="large"
               onChange={(event: object, page: number) => {
@@ -75,7 +75,7 @@ function AllArticles({ articles, total, tags, categories }) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const query = context.query;
-  const page = context.page || 1;
+  const page = query.page || 1;
   const keyword = query.keyword;
   const category = query.category;
   const tag = query.tag;
