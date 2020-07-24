@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
       boxShadow: "none",
       "&:hover": {
-        backgroundColor: "#eeeeee",
+        // backgroundColor: "#eeeeee",
+        filter: "brightness(0.9)",
       },
     },
     actionArea: {

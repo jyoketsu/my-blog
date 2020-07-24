@@ -147,6 +147,9 @@ const article = {
       _id: _id,
     });
   },
+  count() {
+    return request.get(API_URL + "/article/count", {});
+  },
 };
 
 const category = {
@@ -168,6 +171,9 @@ const category = {
     return request.delete(API_URL + "/category/delete", {
       _id: _id,
     });
+  },
+  count() {
+    return request.get(API_URL + "/category/count", {});
   },
 };
 
@@ -191,6 +197,9 @@ const tag = {
     return request.delete(API_URL + "/tag/delete", {
       _id: _id,
     });
+  },
+  count() {
+    return request.get(API_URL + "/tag/count", {});
   },
 };
 
