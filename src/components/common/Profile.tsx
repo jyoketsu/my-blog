@@ -160,16 +160,16 @@ function Count({ articleCount, cagegoryCount, tagCount }: CountProps) {
   return (
     <div className={classes.count}>
       <div className={classes.item}>
-        <Typography className={classes.bold}>{`${cagegoryCount} `}</Typography>
-        <Typography color="textSecondary">个类别</Typography>
+        <Typography className={classes.bold} gutterBottom>{`${cagegoryCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>个类别</Typography>
       </div>
       <div className={classes.item}>
-        <Typography className={classes.bold}>{`${tagCount} `}</Typography>
-        <Typography color="textSecondary">个标签</Typography>
+        <Typography className={classes.bold} gutterBottom>{`${tagCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>个标签</Typography>
       </div>
       <div className={classes.item}>
-        <Typography className={classes.bold}>{`${articleCount} `}</Typography>
-        <Typography color="textSecondary">篇文章</Typography>
+        <Typography className={classes.bold} gutterBottom>{`${articleCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>篇文章</Typography>
       </div>
     </div>
   );

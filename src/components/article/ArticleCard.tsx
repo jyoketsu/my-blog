@@ -17,8 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
       boxShadow: "none",
       "&:hover": {
-        // backgroundColor: "#eeeeee",
         filter: "brightness(0.9)",
+      },
+      "@media (max-width: 768px)": {
+        "&:hover": {
+          filter: "unset",
+        },
       },
     },
     actionArea: {
