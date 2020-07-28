@@ -6,7 +6,7 @@ import Profile from "../src/components/common/Profile";
 import api from "../src/api";
 import Button from "@material-ui/core/Button";
 
-function Home({ posts, user, articleCount, cagegoryCount, tagCount }) {
+function Home({ posts, user, articleCount, cagegoryCount, tagCount, links }) {
   const router = useRouter();
 
   const more = () => {
@@ -35,6 +35,7 @@ function Home({ posts, user, articleCount, cagegoryCount, tagCount }) {
             articleCount={articleCount}
             cagegoryCount={cagegoryCount}
             tagCount={tagCount}
+            links={links}
           />
         </div>
         <div className="home-right">
@@ -63,6 +64,7 @@ export async function getStaticProps() {
     api.article.count(),
     api.category.count(),
     api.tag.count(),
+    api.link.get(),
   ];
   const results: any[] = await Promise.all(promises);
   if (results[0].status === 200 && results[1].status === 200) {
@@ -71,9 +73,10 @@ export async function getStaticProps() {
     const articleCount = results[2].result;
     const cagegoryCount = results[3].result;
     const tagCount = results[4].result;
+    const links = results[5].result;
 
     return {
-      props: { posts, user, articleCount, cagegoryCount, tagCount },
+      props: { posts, user, articleCount, cagegoryCount, tagCount, links },
     };
   }
 }

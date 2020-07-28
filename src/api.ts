@@ -203,12 +203,19 @@ const tag = {
   },
 };
 
+const link = {
+  get() {
+    return request.get(API_URL + "/link", {});
+  },
+};
+
 export default {
   request,
   article,
   category,
   tag,
   auth,
+  link,
   setToken: (_token: string) => {
     window.localStorage.setItem("TOKEN", _token);
     token = _token;

@@ -3,7 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import { User } from "../../../interfaces/user";
+import { Link } from "../../../interfaces/link";
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +27,7 @@ interface Props {
   articleCount: number;
   cagegoryCount: number;
   tagCount: number;
+  links: Link[];
 }
 
 export default function Profile({
@@ -31,18 +35,20 @@ export default function Profile({
   articleCount,
   cagegoryCount,
   tagCount,
+  links,
 }: Props) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <AvatarBackground uri={user.avatar} />
       <CardContent>
-        <Avatar uri={user.avatar} name={user.username} />
+        <OwnerAvatar uri={user.avatar} name={user.username} />
         <Count
           articleCount={articleCount}
           cagegoryCount={cagegoryCount}
           tagCount={tagCount}
         />
+        <Links links={links} />
         <Typography
           className={classes.center}
           color="textSecondary"
@@ -123,7 +129,7 @@ interface AvatarProps {
   name: string;
 }
 
-function Avatar({ uri, name }: AvatarProps) {
+function OwnerAvatar({ uri, name }: AvatarProps) {
   const classes = useAvatarStyles();
   return (
     <div className={classes.avatarWrapper}>
@@ -143,6 +149,8 @@ const useCountStyles = makeStyles({
   },
   item: {
     display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   bold: {
     fontWeight: "bold",
@@ -160,17 +168,66 @@ function Count({ articleCount, cagegoryCount, tagCount }: CountProps) {
   return (
     <div className={classes.count}>
       <div className={classes.item}>
-        <Typography className={classes.bold} gutterBottom>{`${cagegoryCount} `}</Typography>
-        <Typography color="textSecondary" gutterBottom>个类别</Typography>
+        <Typography
+          className={classes.bold}
+          gutterBottom
+        >{`${cagegoryCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>
+          类别
+        </Typography>
       </div>
       <div className={classes.item}>
-        <Typography className={classes.bold} gutterBottom>{`${tagCount} `}</Typography>
-        <Typography color="textSecondary" gutterBottom>个标签</Typography>
+        <Typography
+          className={classes.bold}
+          gutterBottom
+        >{`${tagCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>
+          标签
+        </Typography>
       </div>
       <div className={classes.item}>
-        <Typography className={classes.bold} gutterBottom>{`${articleCount} `}</Typography>
-        <Typography color="textSecondary" gutterBottom>篇文章</Typography>
+        <Typography
+          className={classes.bold}
+          gutterBottom
+        >{`${articleCount} `}</Typography>
+        <Typography color="textSecondary" gutterBottom>
+          文章
+        </Typography>
       </div>
+    </div>
+  );
+}
+
+interface LinksProps {
+  links: Link[];
+}
+
+const useLinkStyles = makeStyles({
+  links: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "0.6em 0",
+  },
+});
+
+function Links({ links }: LinksProps) {
+  const classes = useLinkStyles();
+
+  const handleClick = (uri: string) => {
+    window.open(uri, "_blank");
+  };
+
+  return (
+    <div className={classes.links}>
+      {links.map((link) => (
+        <ButtonBase
+          key={link._id}
+          style={{ borderRadius: "20px" }}
+          onClick={() => handleClick(link.uri)}
+        >
+          <Avatar alt={link.name} src={link.icon} />
+        </ButtonBase>
+      ))}
     </div>
   );
 }
