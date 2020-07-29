@@ -18,15 +18,6 @@ body {
   margin: 25px auto;
   padding: 0 15px;
 }
-footer {
-  border-top: 1px solid #ddd;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #9e9e9e;
-  padding: 0 25px;
-}
 .home-left {
   width: 275px;
 }
@@ -51,12 +42,5 @@ footer {
     width: 100%;
     margin-left: unset;
     padding: 15px;
-  }
-  footer {
-    flex-direction: column;
-    justify-content: center;
-  }
-  footer > span {
-    line-height: 23px;
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
+import MyHead from "../src/components/common/Head";
+import Footer from "../src/components/common/Footer";
 import AppBar from "../src/components/common/AppBar";
 import Articles from "../src/components/article/Aticles";
 import Pagination from "@material-ui/lab/Pagination";
@@ -15,10 +16,7 @@ function AllArticles({ articles, total, tags, categories }) {
 
   return (
     <div className="articles-wrapper">
-      <Head>
-        <title>所有文章-徐杰的博客</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <MyHead title="所有文章" />
       <AppBar />
       <main className="home-main">
         <div className="home-left">
@@ -49,14 +47,7 @@ function AllArticles({ articles, total, tags, categories }) {
           ) : null}
         </div>
       </main>
-      <footer>
-        <span>©2020 Jyoketsu All Rights Reserved</span>
-        <span
-          onClick={() => window.open("http://www.beian.miit.gov.cn", "_blank")}
-        >
-          苏ICP备20038833号
-        </span>
-      </footer>
+      <Footer />
       <style jsx>{`
         .articles-wrapper {
           height: 100%;

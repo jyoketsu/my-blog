@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import Head from "next/head";
+import AppBar from "../../src/components/common/AppBar";
+import MyHead from "../../src/components/common/Head";
+import Footer from "../../src/components/common/Footer";
 import Article from "../../src/components/article/Article";
 import Header from "../../src/components/article/Header";
 import api from "../../src/api";
@@ -9,12 +11,14 @@ function Post({ post }) {
     api.article.incCount(post._id);
   }, []);
 
+  let postStr: string = "";
+  post.tags.map((tag: any) => (postStr += `,${tag.name}`));
+
   return (
     <div className="article">
-      <Head>
-        <title>{`${post.title}-徐杰的博客`}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <MyHead title={post.title} keywords={`${post.category.name}${postStr}`} />
+      <AppBar />
+      <br />
       <main>
         <Header
           category={post.category}
@@ -23,6 +27,8 @@ function Post({ post }) {
         />
         <Article aritcle={post} />
       </main>
+      <br />
+      <Footer />
       <style jsx>{`
         .article {
           padding: 0;

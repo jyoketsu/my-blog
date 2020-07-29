@@ -5,43 +5,58 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-// import IconButton from "@material-ui/core/IconButton";
-// import MenuIcon from "@material-ui/icons/Menu";
 import { useRouter } from "next/router";
-import Alert from "./Alert";
+import { ButtonBase } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    grow: {
-      flexGrow: 1,
+    appbar: {
+      width: "100%",
+      height: "64px",
+      backgroundColor: "#fff",
+    },
+    container: {
+      maxWidth: "990px",
+      height: "100%",
+      margin: "auto",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: `0 ${theme.spacing(2)}px`,
+    },
+    left: { display: "flex" },
+    right: { display: "flex" },
+    logo: {
+      width: "30px",
+      height: "30px",
+      backgroundImage: "url(/logo.png)",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
     },
     title: {
       display: "none",
-      flexGrow: 1,
+      color: "rgba(0, 0, 0, 0.6)",
+      fontSize: "18px",
+      fontWeight: "bold",
+      marginLeft: theme.spacing(1),
       [theme.breakpoints.up("sm")]: {
         display: "block",
       },
     },
-    titleButton: {
-      color: "#FFF",
-      fontSize: "18px",
-    },
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      color: fade(theme.palette.common.black, 0.5),
+      backgroundColor: fade(theme.palette.common.black, 0.08),
       "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.black, 0.1),
       },
-      marginRight: theme.spacing(2),
       marginLeft: 0,
-      width: "100%",
       [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(3),
         width: "auto",
@@ -68,18 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "20ch",
       },
     },
-    sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
-      },
-    },
-    sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
-      },
-    },
   })
 );
 
@@ -103,21 +106,17 @@ export default function PrimarySearchAppBar() {
   };
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          {/* <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
+    <div className={classes.appbar}>
+      <div className={classes.container}>
+        <div className={classes.left}>
+          <ButtonBase onClick={() => router.push("/")}>
+            <i className={classes.logo}></i>
+          </ButtonBase>
           <Typography className={classes.title} variant="h6" noWrap>
-            <Button
-              className={classes.titleButton}
-              size="large"
-              onClick={() => router.push("/")}
-            >
-              徐杰的个人博客
-            </Button>
+            徐杰的个人博客
           </Typography>
+        </div>
+        <div className={classes.right}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -134,9 +133,8 @@ export default function PrimarySearchAppBar() {
               onKeyDown={handleSearch}
             />
           </div>
-        </Toolbar>
-      </AppBar>
-      <Alert alert={alert} setalert={setalert} />
+        </div>
+      </div>
     </div>
   );
 }

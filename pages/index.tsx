@@ -1,5 +1,6 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
+import MyHead from "../src/components/common/Head";
+import Footer from "../src/components/common/Footer";
 import Articles from "../src/components/article/Aticles";
 import AppBar from "../src/components/common/AppBar";
 import Profile from "../src/components/common/Profile";
@@ -23,10 +24,7 @@ function Home({ posts, user, articleCount, cagegoryCount, tagCount, links }) {
 
   return (
     <div className="articles-wrapper">
-      <Head>
-        <title>徐杰的博客</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <MyHead />
       <AppBar />
       <main className="home-main">
         <div className="home-left">
@@ -45,14 +43,7 @@ function Home({ posts, user, articleCount, cagegoryCount, tagCount, links }) {
           </Button>
         </div>
       </main>
-      <footer>
-        <span>©2020 Jyoketsu All Rights Reserved</span>
-        <span
-          onClick={() => window.open("http://www.beian.miit.gov.cn", "_blank")}
-        >
-          苏ICP备20038833号
-        </span>
-      </footer>
+      <Footer />
     </div>
   );
 }
