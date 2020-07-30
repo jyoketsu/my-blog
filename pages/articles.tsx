@@ -31,13 +31,17 @@ function AllArticles({ articles, total, tags, categories }) {
               count={Math.ceil(total / pageSize)}
               size="large"
               onChange={(event: object, page: number) => {
+                // 路由跳转
                 router.push({
                   pathname: "/articles",
                   query: { ...query, ...{ page: page } },
                 });
-                // (document.getElementById(
-                //   "__next"
-                // ) as HTMLElement).scrollTop = 0;
+                // 回到顶部
+                if (document.body.scrollTop !== 0) {
+                  document.body.scrollTop = 0;
+                } else {
+                  document.documentElement.scrollTop = 0;
+                }
               }}
             />
           ) : null}
