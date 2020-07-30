@@ -1,0 +1,6 @@
+// 允许所有搜索引擎检索到
+User-agent: *
+// 网站的sitemap地址
+Sitemap: https://blog.jyoketsu.com/
+// 不允许被访问的页面，路径等
+Disallow:
