@@ -39,5 +39,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 # SEO优化
-[Google Search Console](https://www.google.com/ping?sitemap=https://blog.jyoketsu.com/sitemap.xml)
+[向Google提交sitemap](https://www.google.com/ping?sitemap=https://blog.jyoketsu.com/sitemap.xml)  
+[Google Search Console](https://search.google.com/search-console?hl=zh-CN)  
+[Bing Webmaster](https://www.bing.com/webmasters)（可从谷歌导入）  
 [百度搜索资源平台](https://ziyuan.baidu.com/dashboard/index?site=https://blog.jyoketsu.com/)
