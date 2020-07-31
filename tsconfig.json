@@ -15,5 +15,5 @@
     "jsx": "preserve"
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/redux/store.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/redux/store.js", "pages/sitemap.xml.jsx"]
 }
