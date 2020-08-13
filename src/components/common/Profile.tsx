@@ -7,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { User } from "../../../interfaces/user";
 import { Link } from "../../../interfaces/link";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
   root: {
@@ -146,6 +147,9 @@ const useCountStyles = makeStyles({
   count: {
     display: "flex",
     justifyContent: "space-between",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   item: {
     display: "flex",
@@ -165,8 +169,9 @@ interface CountProps {
 
 function Count({ articleCount, cagegoryCount, tagCount }: CountProps) {
   const classes = useCountStyles();
+  const router = useRouter();
   return (
-    <div className={classes.count}>
+    <div className={classes.count} onClick={() => router.push("/articles")}>
       <div className={classes.item}>
         <Typography
           className={classes.bold}

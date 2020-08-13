@@ -8,7 +8,6 @@ import {
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import Button from "@material-ui/core/Button";
 import { useRouter } from "next/router";
 import { ButtonBase } from "@material-ui/core";
 
@@ -112,7 +111,12 @@ export default function PrimarySearchAppBar() {
           <ButtonBase onClick={() => router.push("/")}>
             <i className={classes.logo}></i>
           </ButtonBase>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            onClick={() => router.push("/")}
+          >
             徐杰的个人博客
           </Typography>
         </div>

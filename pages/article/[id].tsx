@@ -16,7 +16,11 @@ function Post({ post }) {
 
   return (
     <div className="article">
-      <MyHead title={post.title} keywords={`${post.category.name}${postStr}`} />
+      <MyHead
+        title={post.title}
+        keywords={`${post.category.name}${postStr}`}
+        description={post.snippet}
+      />
       <AppBar />
       <br />
       <main>
