@@ -38,7 +38,7 @@ function Home({ posts, user, articleCount, cagegoryCount, tagCount, links }) {
         </div>
         <div className="home-right">
           <Articles articles={posts} />
-          <Button color="primary" onClick={more}>
+          <Button onClick={more}>
             查看更多
           </Button>
         </div>

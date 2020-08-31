@@ -1,4 +1,6 @@
 export const actionTypes = {
+  SWITCH_THEME_TYPE: "SWITCH_THEME_TYPE",
+
   GET_ARTICLES: "GET_ARTICLES",
   GET_ARTICLES_SUCCEEDED: "GET_ARTICLES_SUCCEEDED",
   GET_ARTICLES_FAILED: "GET_ARTICLES_FAILED",
@@ -6,6 +8,12 @@ export const actionTypes = {
   GET_ARTICLE_BY_ID: "GET_ARTICLE_BY_ID",
   CLEAR_ARTICLE: "CLEAR_ARTICLE",
 };
+
+export function switchThemeType() {
+  return {
+    type: actionTypes.SWITCH_THEME_TYPE,
+  };
+}
 
 export function getArticles(
   current: number,

@@ -11,14 +11,14 @@ export default function Header({ category, tags, updateTime }) {
         <div className="wrapper">
           <CategoryOutlinedIcon
             fontSize="small"
-            style={{ color: "rgba(0, 0, 0, 0.54)", marginRight: "8px" }}
+            style={{ marginRight: "8px" }}
           />
           <Info info={category.name} />
         </div>
         <div className="wrapper">
           <LocalOfferOutlinedIcon
             fontSize="small"
-            style={{ color: "rgba(0, 0, 0, 0.54)", marginRight: "8px" }}
+            style={{ marginRight: "8px" }}
           />
           {tags.map((tag, index) => (
             <Tag id={tag._id} key={index} text={tag.name} color={tag.color} />

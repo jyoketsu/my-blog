@@ -5,8 +5,25 @@ import Footer from "../../src/components/common/Footer";
 import Article from "../../src/components/article/Article";
 import Header from "../../src/components/article/Header";
 import api from "../../src/api";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    article: {
+      padding: 0,
+    },
+    main: {
+      maxWidth: "800px",
+      margin: "auto",
+      backgroundColor: theme.palette.background.paper,
+      padding: "25px",
+    },
+  })
+);
 
 function Post({ post }) {
+  const classes = useStyles();
+
   useEffect(() => {
     api.article.incCount(post._id);
   }, []);
@@ -15,7 +32,7 @@ function Post({ post }) {
   post.tags.map((tag: any) => (postStr += `,${tag.name}`));
 
   return (
-    <div className="article">
+    <div className={classes.article}>
       <MyHead
         title={post.title}
         keywords={`${post.category.name}${postStr}`}
@@ -23,7 +40,7 @@ function Post({ post }) {
       />
       <AppBar />
       <br />
-      <main>
+      <main className={classes.main}>
         <Header
           category={post.category}
           tags={post.tags}
@@ -34,15 +51,6 @@ function Post({ post }) {
       <br />
       <Footer />
       <style jsx>{`
-        .article {
-          padding: 0;
-        }
-        main {
-          max-width: 800px;
-          margin: auto;
-          background-color: #fff;
-          padding: 25px;
-        }
         @media screen and (max-width: 768px) {
           main {
             width: 100%;

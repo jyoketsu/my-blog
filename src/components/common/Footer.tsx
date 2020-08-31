@@ -1,6 +1,20 @@
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    footer: {
+      height: "60px",
+      padding: "0 25px",
+      backgroundColor: theme.palette.background.paper,
+    },
+  })
+);
+
 export default function Footer() {
+  const classes = useStyles();
+
   return (
-    <footer>
+    <footer className={classes.footer}>
       <div>
         <span>{`@${new Date().getFullYear()} Jyoketsu All Rights Reserved`}</span>
         <span
@@ -10,12 +24,6 @@ export default function Footer() {
         </span>
       </div>
       <style jsx>{`
-        footer {
-          border-top: 1px solid #ddd;
-          height: 60px;
-          color: #9e9e9e;
-          padding: 0 25px;
-        }
         footer > div {
           max-width: 990px;
           margin: auto;
