@@ -9,9 +9,10 @@ export const actionTypes = {
   CLEAR_ARTICLE: "CLEAR_ARTICLE",
 };
 
-export function switchThemeType() {
+export function switchThemeType(themeType: string) {
   return {
     type: actionTypes.SWITCH_THEME_TYPE,
+    themeType,
   };
 }
 

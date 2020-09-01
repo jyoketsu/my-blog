@@ -5,12 +5,16 @@ import Head from "next/head";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { wrapper } from "../src/redux/store";
 import { useTypedSelector } from "../src/redux/reducer/RootState";
+import { useDispatch } from "react-redux";
+import { switchThemeType } from "../src/redux/actions";
 
 function MyApp(props) {
   const { Component, pageProps } = props;
   const themeType = useTypedSelector((state) => state.common.themeType);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -20,11 +24,40 @@ function MyApp(props) {
     }
   }, []);
 
-  const theme = createMuiTheme({
-    palette: {
-      type: themeType,
-    },
-  });
+  useEffect(() => {
+    const sessionThemeType = sessionStorage.getItem("theme-type");
+    if (sessionThemeType) {
+      dispatch(switchThemeType(sessionThemeType));
+    }
+  }, []);
+
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  // const theme = createMuiTheme({
+  //   palette: {
+  //     // type: themeType,
+  //     type: themeType ? themeType : prefersDarkMode ? "dark" : "light",
+  //   },
+  // });
+
+  let theme: any;
+  const type = themeType ? themeType : prefersDarkMode ? "dark" : "light";
+  if (type === "light") {
+    theme = createMuiTheme({
+      palette: {
+        background: {
+          default: "#f2f2f3",
+        },
+        type: "light",
+      },
+    });
+  } else if (type === "dark") {
+    theme = createMuiTheme({
+      palette: {
+        type: "dark",
+      },
+    });
+  }
 
   return (
     <React.Fragment>

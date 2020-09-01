@@ -15,6 +15,7 @@ import { ButtonBase } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { switchThemeType } from "../../redux/actions";
 import { useTypedSelector } from "../../redux/reducer/RootState";
 
@@ -106,6 +107,7 @@ export default function PrimarySearchAppBar() {
   const [alert, setalert] = React.useState("");
   const dispatch = useDispatch();
   const themeType = useTypedSelector((state) => state.common.themeType);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const handleSearch = (event: React.KeyboardEvent) => {
     if (event.keyCode === 13) {
@@ -118,6 +120,17 @@ export default function PrimarySearchAppBar() {
         setalert("检索内容不能为空！");
       }
     }
+  };
+
+  const handleSwitchTheme = () => {
+    let newThemeType: string;
+    if (themeType) {
+      newThemeType = themeType === "dark" ? "light" : "dark";
+    } else {
+      newThemeType = prefersDarkMode ? "light" : "dark";
+    }
+    dispatch(switchThemeType(newThemeType));
+    sessionStorage.setItem("theme-type", newThemeType);
   };
 
   return (
@@ -154,10 +167,7 @@ export default function PrimarySearchAppBar() {
           />
         </div>
         <Tooltip title={`切换为${themeType === "dark" ? "亮色" : "深色"}主题`}>
-          <IconButton
-            color="inherit"
-            onClick={() => dispatch(switchThemeType())}
-          >
+          <IconButton color="inherit" onClick={handleSwitchTheme}>
             {themeType === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>

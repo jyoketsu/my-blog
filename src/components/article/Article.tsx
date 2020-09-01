@@ -10,6 +10,7 @@ export default function ({ aritcle }) {
     for (let index = 0; index < links.length; index++) {
       if (links[index].hostname !== window.location.hostname) {
         links[index].target = "_blank";
+        links[index].style.color = "#2EA9DF";
       }
     }
   }, []);
